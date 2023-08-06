@@ -28,7 +28,7 @@ def convert(screen_width, src_image_dir, output_file):
 
         if screen_width == 384:
 
-          grm_bytes = bytearray(384 * im_height * 2)
+          grm_bytes = bytearray(512 * im_height * 2)
           for y in range(im_height):
             for x in range(im_width):
               r = im_bytes[ (y * im_width + x) * 3 + 0 ] >> 3
@@ -37,8 +37,8 @@ def convert(screen_width, src_image_dir, output_file):
               c = (g << 11) | (r << 6) | (b << 1)
               if c > 0:
                 c += 1
-              grm_bytes[ y * 384 * 2 + x * 2 + 0 ] = c // 256
-              grm_bytes[ y * 384 * 2 + x * 2 + 1 ] = c % 256
+              grm_bytes[ y * 512 * 2 + x * 2 + 0 ] = c // 256
+              grm_bytes[ y * 512 * 2 + x * 2 + 1 ] = c % 256
           f.write(grm_bytes)
 
         else:
