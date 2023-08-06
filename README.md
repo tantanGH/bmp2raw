@@ -1,2 +1,2 @@
-# mov2raw
-Movie file to raw format converter
+# bmp2raw
+BMP files to raw format movie file converter
