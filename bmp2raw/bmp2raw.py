@@ -26,7 +26,7 @@ def convert(screen_width, src_image_dir, output_file):
 
         im_bytes = im.tobytes()
 
-        if screen_width == 384:
+        if screen_width == 384 or screen_width == 512:
 
           grm_bytes = bytearray(512 * im_height * 2)
           for y in range(im_height):
@@ -76,7 +76,7 @@ def main():
 
   parser = argparse.ArgumentParser()
 
-  parser.add_argument("screen_width", help="output screen width (256 or 384)", type=int)
+  parser.add_argument("screen_width", help="output screen width (256,384,512)", type=int)
   parser.add_argument("src_image_dir", help="source individual image directory")
   parser.add_argument("output_file", help="output file name")
 
