@@ -63,16 +63,13 @@ def convert(screen_width, src_image_dir, output_file, fade_out):
                 r = im_bytes[ (y * im_width + x) * 3 + 0 ]
                 g = im_bytes[ (y * im_width + x) * 3 + 1 ]
                 b = im_bytes[ (y * im_width + x) * 3 + 2 ]
-                print(f"{r} {g} {b}")
                 if fade_out and i >= fade_out_start:
                   r = int(r * float(30.0 - (i - fade_out_start)) / 30.0)
                   g = int(g * float(30.0 - (i - fade_out_start)) / 30.0)
                   b = int(b * float(30.0 - (i - fade_out_start)) / 30.0)
-                print(f" {r} {g} {b}")
                 r >>= 3
                 g >>= 3
                 b >>= 3
-                print(f"  {r} {g} {b}")
                 c = (g << 11) | (r << 6) | (b << 1)
                 if c > 0:
                   c += 1
