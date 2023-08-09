@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="bmp2raw",
-    version="0.1.6",
+    version="0.1.7",
     author="tantanGH",
     author_email="tantanGH@github",
     license='MIT',

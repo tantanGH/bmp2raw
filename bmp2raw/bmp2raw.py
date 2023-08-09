@@ -4,14 +4,18 @@ import argparse
 
 from PIL import Image
 
-def convert(screen_width, src_image_dir, output_file):
+def convert(screen_width, src_image_dir, output_file, fade_out):
 
   frame0 = False
   frame1 = False
 
   with open(output_file, "wb") as f:
 
-    for bmp_name in sorted(os.listdir(src_image_dir)):
+    bmp_files = sorted(os.listdir(src_image_dir))
+
+    fade_out_start = len(bmp_files) - 30 if fade_out else -1 
+
+    for i,bmp_name in enumerate(bmp_files):
 
       if bmp_name.endswith(".bmp"):
 
@@ -34,6 +38,10 @@ def convert(screen_width, src_image_dir, output_file):
               r = im_bytes[ (y * im_width + x) * 3 + 0 ] >> 3
               g = im_bytes[ (y * im_width + x) * 3 + 1 ] >> 3
               b = im_bytes[ (y * im_width + x) * 3 + 2 ] >> 3
+              if fade_out and i >= fade_out_start:
+                r = int(r * float(30.0 - (i - fade_out_start)) / 30.0)
+                g = int(g * float(30.0 - (i - fade_out_start)) / 30.0)
+                b = int(b * float(30.0 - (i - fade_out_start)) / 30.0)
               c = (g << 11) | (r << 6) | (b << 1)
               if c > 0:
                 c += 1
@@ -50,6 +58,10 @@ def convert(screen_width, src_image_dir, output_file):
                 r = im_bytes[ (y * im_width + x) * 3 + 0 ] >> 3
                 g = im_bytes[ (y * im_width + x) * 3 + 1 ] >> 3
                 b = im_bytes[ (y * im_width + x) * 3 + 2 ] >> 3
+                if fade_out and i >= fade_out_start:
+                  r = int(r * float(30.0 - (i - fade_out_start)) / 30.0)
+                  g = int(g * float(30.0 - (i - fade_out_start)) / 30.0)
+                  b = int(b * float(30.0 - (i - fade_out_start)) / 30.0)
                 c = (g << 11) | (r << 6) | (b << 1)
                 if c > 0:
                   c += 1
@@ -79,10 +91,11 @@ def main():
   parser.add_argument("screen_width", help="output screen width (256,384,512)", type=int)
   parser.add_argument("src_image_dir", help="source individual image directory")
   parser.add_argument("output_file", help="output file name")
+  parser.add_argument("-f", "--fade_out", help="fade out", action='store_true')
 
   args = parser.parse_args()
 
-  convert(args.screen_width, args.src_image_dir, args.output_file)
+  convert(args.screen_width, args.src_image_dir, args.output_file, args.fade_out)
 
 
 if __name__ == "__main__":
