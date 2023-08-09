@@ -35,13 +35,16 @@ def convert(screen_width, src_image_dir, output_file, fade_out):
           grm_bytes = bytearray(512 * im_height * 2)
           for y in range(im_height):
             for x in range(im_width):
-              r = im_bytes[ (y * im_width + x) * 3 + 0 ] >> 3
-              g = im_bytes[ (y * im_width + x) * 3 + 1 ] >> 3
-              b = im_bytes[ (y * im_width + x) * 3 + 2 ] >> 3
+              r = im_bytes[ (y * im_width + x) * 3 + 0 ]
+              g = im_bytes[ (y * im_width + x) * 3 + 1 ]
+              b = im_bytes[ (y * im_width + x) * 3 + 2 ]
               if fade_out and i >= fade_out_start:
                 r = int(r * float(30.0 - (i - fade_out_start)) / 30.0)
                 g = int(g * float(30.0 - (i - fade_out_start)) / 30.0)
                 b = int(b * float(30.0 - (i - fade_out_start)) / 30.0)
+              r >>= 3
+              g >>= 3
+              b >>= 3
               c = (g << 11) | (r << 6) | (b << 1)
               if c > 0:
                 c += 1
@@ -55,13 +58,16 @@ def convert(screen_width, src_image_dir, output_file, fade_out):
             grm_bytes = bytearray(256 * im_height * 2 * 2)
             for y in range(im_height):
               for x in range(im_width):
-                r = im_bytes[ (y * im_width + x) * 3 + 0 ] >> 3
-                g = im_bytes[ (y * im_width + x) * 3 + 1 ] >> 3
-                b = im_bytes[ (y * im_width + x) * 3 + 2 ] >> 3
+                r = im_bytes[ (y * im_width + x) * 3 + 0 ]
+                g = im_bytes[ (y * im_width + x) * 3 + 1 ]
+                b = im_bytes[ (y * im_width + x) * 3 + 2 ]
                 if fade_out and i >= fade_out_start:
                   r = int(r * float(30.0 - (i - fade_out_start)) / 30.0)
                   g = int(g * float(30.0 - (i - fade_out_start)) / 30.0)
                   b = int(b * float(30.0 - (i - fade_out_start)) / 30.0)
+                r >>= 3
+                g >>= 3
+                b >>= 3
                 c = (g << 11) | (r << 6) | (b << 1)
                 if c > 0:
                   c += 1
@@ -71,9 +77,16 @@ def convert(screen_width, src_image_dir, output_file, fade_out):
           elif frame1 is False:
             for y in range(im_height):
               for x in range(im_width):
-                r = im_bytes[ (y * im_width + x) * 3 + 0 ] >> 3
-                g = im_bytes[ (y * im_width + x) * 3 + 1 ] >> 3
-                b = im_bytes[ (y * im_width + x) * 3 + 2 ] >> 3
+                r = im_bytes[ (y * im_width + x) * 3 + 0 ]
+                g = im_bytes[ (y * im_width + x) * 3 + 1 ]
+                b = im_bytes[ (y * im_width + x) * 3 + 2 ]
+                if fade_out and i >= fade_out_start:
+                  r = int(r * float(30.0 - (i - fade_out_start)) / 30.0)
+                  g = int(g * float(30.0 - (i - fade_out_start)) / 30.0)
+                  b = int(b * float(30.0 - (i - fade_out_start)) / 30.0)
+                r >>= 3
+                g >>= 3
+                b >>= 3
                 c = (g << 11) | (r << 6) | (b << 1)
                 if c > 0:
                   c += 1
