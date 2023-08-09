@@ -15,7 +15,7 @@ def convert(screen_width, src_image_dir, output_file, fade_out):
 
     fade_out_start = len(bmp_files) - 30 if fade_out else -1 
     if fade_out:
-      print(f"fade out from {fade_out}")
+      print(f"fade out from {fade_out_start}")
 
     for i,bmp_name in enumerate(bmp_files):
 
